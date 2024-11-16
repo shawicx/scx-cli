@@ -1,4 +1,4 @@
-import { log } from "@clack/prompts";
+import { log } from '@clack/prompts';
 import fs from 'fs';
 
 /**
@@ -13,8 +13,8 @@ export async function initConfig() {
  * @param config 是否初始化配置文件
  * @param api 是否生成 api 文件以及 interface 文件
  */
-export default async function commandSwagger({ config, api }: { config: boolean, api: boolean }) {
-  if (config) { 
+export default async function commandSwagger({ config, api }: { config: boolean; api: boolean }) {
+  if (config) {
     initConfig();
     return;
   }
@@ -26,9 +26,9 @@ export default async function commandSwagger({ config, api }: { config: boolean,
       return;
     }
     // 读取配置文件
-    const config = JSON.parse(fs.readFileSync('./swagger.json', 'utf8'));
+    const _config = JSON.parse(fs.readFileSync('./swagger.json', 'utf8'));
     // 检查是否存在 swagger url
-    if (!fs.existsSync(config.swaggerUrl)) {
+    if (!fs.existsSync(_config.swaggerUrl)) {
       log.error('请先初始化配置文件');
       process.exit(1);
     }

@@ -1,7 +1,8 @@
 import { Command } from 'commander';
 
-import commandTemplate from '~/template';
 import commandSwagger from '~/swagger';
+import commandTemplate from '~/template';
+
 import cliPkg from '../package.json';
 
 const program = new Command();
@@ -19,7 +20,8 @@ program
     await commandTemplate();
   });
 
-program.command('swagger')
+program
+  .command('swagger')
   .description('根据 swagger 文档生成 api 文件以及 interface 文件')
   // 初始化配置文件
   .option('-c, --config', '初始化配置文件')

@@ -21,9 +21,14 @@
   "scripts": {
     "build": "tsup",
     "dev": "ts-node-dev -r ./tsconfig-paths-bootstrap.js --respawn --transpile-only src/index.ts swagger --config",
-    "lint": "eslint .",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "lint": "eslint . && stylelint \"**/*.{css,less,scss}\"",
     "lint:fix": "prettier --write . && eslint --fix .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "prepublish": "turbo build",
+    "publish": "changeset add && changeset version && changeset publish",
+    "postaction": "git push origin main --tags",
+    "release": "pnpm run prepublish && pnpm run publish && pnpm run postaction"
   },
   "commitlint": {
     "extends": [
