@@ -25,7 +25,7 @@
     "lint": "eslint . && stylelint \"**/*.{css,less,scss}\"",
     "lint:fix": "prettier --write . && eslint --fix .",
     "prepare": "husky install",
-    "prepublish": "turbo build",
+    "prepublish": "tsup",
     "publish": "changeset add && changeset version && changeset publish",
     "postaction": "git push origin main --tags",
     "release": "pnpm run prepublish && pnpm run publish && pnpm run postaction"
