@@ -15,7 +15,7 @@ export async function initConfig() {
  */
 export default async function commandSwagger({ config, api }: { config: boolean; api: boolean }) {
   if (config) {
-    initConfig();
+    await initConfig();
     return;
   }
 
