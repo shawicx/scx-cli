@@ -3,7 +3,7 @@
  * @Date: 2025-03-23 21:35:42
  * @LastEditors: shawicx d35f3153@proton.me
  * @LastEditTime: 2025-03-24 07:29:07
-* @Description: 
+ * @Description:
  */
 import signale from 'signale';
 import { defineConfig } from 'tsup';

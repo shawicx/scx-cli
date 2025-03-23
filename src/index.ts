@@ -3,17 +3,17 @@
  * @Date: 2025-03-23 21:35:42
  * @LastEditors: shawicx d35f3153@proton.me
  * @LastEditTime: 2025-03-23 23:17:08
- * @Description: 
+ * @Description:
  */
 import { Command } from 'commander';
 import signale from 'signale';
 
+import commandCsv from '~/csv';
+import { CsvType } from '~/csv/type';
 import commandSwagger from '~/swagger';
 import commandTemplate from '~/template';
-import commandCsv from '~/csv';
 
 import cliPkg from '../package.json';
-import { CsvType } from '~/csv/type';
 
 const program = new Command();
 
