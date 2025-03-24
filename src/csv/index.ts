@@ -50,6 +50,11 @@ export default async function (fileName: string, type: string) {
   }
 }
 
+/**
+ * @description 将 CSV 数据转换为 JSON 对象
+ * @param data CSV 数据
+ * @returns 解析后的 JSON 对象
+ */
 const csvToJSON = async (data: string) => {
   signale.debug(data);
   return new Promise((resolve, reject) => {
@@ -73,16 +78,15 @@ const csvToJSON = async (data: string) => {
 };
 
 /**
- * @description 将 json 数据转换为 csv 文件
- * @param data json 数据
+ * @description 将 xlsx 文件内容转换为 csv 文件
+ * @param fileName 文件名
  */
 const jsonToCsv = async (fileName: string) => {
   try {
-    const excelData = await XLSX.readFile(fileName);
+    // 读取 Excel 文件
+    const excelData = XLSX.readFile(fileName);
     const sheetName = excelData.SheetNames[0];
     const jsonData = XLSX.utils.sheet_to_json(excelData.Sheets[sheetName]);
-
-    // 解析 JSON 字符串为对象
 
     // 将 JSON 数据转换为 CSV 格式
     const csvContent = stringify(jsonData, {
@@ -104,16 +108,22 @@ const jsonToCsv = async (fileName: string) => {
 
 /**
  * @description 将 json 数据转换为 excel 文件
- * @param jsonData json 数据
+ * @param data 数据
  * @param fileName 文件名
  */
 const jsonToExcel = async (data: string, fileName: string) => {
+  // 将 CSV 数据转换为 JSON 对象
   const jsonData = await csvToJSON(data);
 
+  // 创建工作表和工作簿
   const worksheet = XLSX.utils.json_to_sheet(jsonData as unknown[]);
   const workbook = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+
+  // 生成输出文件名
   const excelFileName = fileName.replace('.csv', `_${generateRandomString()}.xlsx`);
+
+  // 写入 Excel 文件
   XLSX.writeFile(workbook, excelFileName);
   signale.info(`Excel file created: ${excelFileName}`);
 };
