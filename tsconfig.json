@@ -2,6 +2,7 @@
   "extends": "@shawbox/ts-config/base.json",
   "compilerOptions": {
     "rootDir": ".",
+    "outDir": "dist",
     "lib": ["ESNext"],
     "target": "ESNext",
     "resolveJsonModule": true,
@@ -13,7 +14,8 @@
     "strict": true,
     "paths": {
       "~/*": ["./src/*"]
-    }
+    },
   },
-  "exclude": ["node_modules", "./tsconfig-paths-bootstrap.js"]
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "./tsup.config.ts", "./scripts/*"]
 }

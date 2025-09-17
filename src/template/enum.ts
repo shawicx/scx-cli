@@ -1,45 +1,50 @@
+/*
+ * @Author: shawicx d35f3153@proton.me
+ * @Description: 枚举
+ */
+
 /**
  * @description 模板类型
  */
-export enum ShawboxTemplateType {
+export const ScxfeTemplateType = {
   /**
    * @description React SaaS
    */
-  REACT = 'react',
+  REACT: 'react',
   /**
    * @description React Hook
    */
-  REACT_HOOK = 'react-hook',
+  REACT_HOOK: 'react-hook',
   /**
    * @description Vue SaaS
    */
-  VUE = 'vue',
+  VUE: 'vue',
   /**
    * @description 工具库
    */
-  LIBRARY = 'library',
+  LIBRARY: 'library',
   /**
    * @description 脚手架
    */
-  CLI = 'cli',
+  CLI: 'cli',
   /**
    * @description 插件
    */
-  PLUGIN = 'plugin',
+  PLUGIN: 'plugin',
   /**
    * @description 其他
    */
-  OTHER = 'other',
+  OTHER: 'other',
   /**
    * @description Mono repo
    */
-  MONOREPO = 'monorepo',
-}
+  MONOREPO: 'monorepo',
+} as const;
 
-export const ShawboxTemplateRepository = new Map([
-  [ShawboxTemplateType.REACT, 'https://github.com/shawicx/template-react'],
-  [ShawboxTemplateType.REACT_HOOK, 'https://github.com/shawicx/template-react-hook'],
-  [ShawboxTemplateType.VUE, 'https://github.com/shawicx/shawboxtemplate-vue'],
-  [ShawboxTemplateType.LIBRARY, 'https://github.com/shawicx/template-library'],
-  [ShawboxTemplateType.CLI, 'https://github.com/shawicx/shawbox-template-cli'],
+export const ScxfeTemplateRepository = new Map([
+  [ScxfeTemplateType.REACT, 'https://github.com/shawicx/template-react'],
+  [ScxfeTemplateType.REACT_HOOK, 'https://github.com/shawicx/template-react-hook'],
+  [ScxfeTemplateType.VUE, 'https://github.com/shawicx/shawboxtemplate-vue'],
+  [ScxfeTemplateType.LIBRARY, 'https://github.com/shawicx/template-library'],
+  [ScxfeTemplateType.CLI, 'https://github.com/shawicx/shawbox-template-cli'],
 ]);

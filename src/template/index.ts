@@ -6,7 +6,7 @@ import { FolderRegex } from '~/utils/constant';
 import { DependencyType } from '~/utils/enum';
 import { runCommand } from '~/utils/function';
 
-import { ShawboxTemplateRepository, ShawboxTemplateType } from './enum';
+import { ScxfeTemplateRepository, ScxfeTemplateType } from './enum';
 
 /**
  * @description 输入文件夹名称
@@ -39,12 +39,12 @@ export default async function () {
           message: '下载哪个模板？',
           options: [
             {
-              label: ShawboxTemplateType.REACT_HOOK,
-              value: ShawboxTemplateType.REACT_HOOK,
+              label: ScxfeTemplateType.REACT_HOOK,
+              value: ScxfeTemplateType.REACT_HOOK,
             },
             {
-              label: ShawboxTemplateType.CLI,
-              value: ShawboxTemplateType.CLI,
+              label: ScxfeTemplateType.CLI,
+              value: ScxfeTemplateType.CLI,
             },
           ],
         });
@@ -101,10 +101,10 @@ export default async function () {
   }
   const git = simpleGit();
 
-  log.info(ShawboxTemplateRepository.get(template) ?? '模板不存在');
-  await git.clone(ShawboxTemplateRepository.get(template) as string, folder);
+  log.info(ScxfeTemplateRepository.get(template) ?? '模板不存在');
+  await git.clone(ScxfeTemplateRepository.get(template) as string, folder);
 
-  log.info(ShawboxTemplateRepository.get(template) ?? '模板不存在');
+  log.info(ScxfeTemplateRepository.get(template) ?? '模板不存在');
 
   if (install) {
     // 进入目录

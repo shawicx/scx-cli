@@ -1,15 +1,12 @@
 /*
  * @Author: shawicx d35f3153@proton.me
- * @Date: 2025-03-23 21:37:54
- * @LastEditors: shawicx d35f3153@proton.me
- * @LastEditTime: 2025-03-24 07:36:40
  * @Description:
  */
+import { consola } from 'consola';
 import { CsvError, parse } from 'csv-parse';
 import { stringify } from 'csv-stringify/sync';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'path';
-import signale from 'signale';
 import * as XLSX from 'xlsx';
 
 import { CsvType } from '~/csv/type';
@@ -22,11 +19,11 @@ import { generateRandomString } from '~/utils/function';
  */
 export default async function (fileName: string, type: string) {
   const filePath = path.join(__dirname, fileName);
-  signale.debug('filePath: ', filePath);
+  consola.debug('filePath: ', filePath);
 
   // 文件不存在
   if (!existsSync(fileName)) {
-    signale.error('文件不存在');
+    consola.error('文件不存在');
     process.exit(1);
   }
 
@@ -36,16 +33,16 @@ export default async function (fileName: string, type: string) {
   switch (type) {
     case CsvType.CsvToJSON:
       // csv 转 json
-      signale.debug('csv 转 json');
+      consola.debug('csv 转 json');
       await jsonToExcel(data, fileName);
       break;
     case CsvType.JSONToCsv:
       // json 转 csv
-      signale.debug('json 转 csv');
+      consola.debug('json 转 csv');
       await jsonToCsv(fileName);
       break;
     default:
-      signale.error('转换类型错误');
+      consola.error('转换类型错误');
       process.exit(1);
   }
 }
@@ -56,7 +53,7 @@ export default async function (fileName: string, type: string) {
  * @returns 解析后的 JSON 对象
  */
 const csvToJSON = async (data: string) => {
-  signale.debug(data);
+  consola.debug(data);
   return new Promise((resolve, reject) => {
     parse(
       data,
@@ -66,10 +63,10 @@ const csvToJSON = async (data: string) => {
       },
       (err: CsvError | undefined, output: unknown[]) => {
         if (err) {
-          signale.error('Error parsing CSV:', err);
+          consola.error('Error parsing CSV:', err);
           reject(err);
         } else {
-          signale.debug('Parsed JSON:', output);
+          consola.debug('Parsed JSON:', output);
           resolve(output);
         }
       },
@@ -99,9 +96,9 @@ const jsonToCsv = async (fileName: string) => {
 
     // 写入文件
     writeFileSync(outputFileName, csvContent as unknown as string);
-    signale.success(`CSV file created: ${outputFileName}`);
+    consola.success(`CSV file created: ${outputFileName}`);
   } catch (error) {
-    signale.error('Error converting JSON to CSV:', error);
+    consola.error('Error converting JSON to CSV:', error);
     process.exit(1);
   }
 };
@@ -125,5 +122,5 @@ const jsonToExcel = async (data: string, fileName: string) => {
 
   // 写入 Excel 文件
   XLSX.writeFile(workbook, excelFileName);
-  signale.info(`Excel file created: ${excelFileName}`);
+  consola.info(`Excel file created: ${excelFileName}`);
 };

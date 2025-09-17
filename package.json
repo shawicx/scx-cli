@@ -20,15 +20,15 @@
   "bin": "dist/index.js",
   "scripts": {
     "build": "tsup",
-    "dev": "ts-node-dev -r ./tsconfig-paths-bootstrap.js --respawn --transpile-only src/index.ts csv test_IfTmydGs.xlsx -f",
+    "dev": "tsx src/index.ts",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "eslint . && stylelint \"**/*.{css,less,scss}\"",
     "lint:fix": "prettier --write . && eslint --fix .",
     "prepare": "husky install",
-    "prepublish": "tsup",
-    "publish": "changeset add && changeset version && changeset publish",
-    "postaction": "git push origin main --tags",
-    "release": "pnpm run prepublish && pnpm run publish && pnpm run postaction"
+    "prepublish": "bun run build",
+    "publish": "standard-version",
+    "postpublish": "git push origin main --tags",
+    "release": "bun run prepublish && bun run publish && bun run postpublish"
   },
   "commitlint": {
     "extends": [
@@ -88,7 +88,7 @@
               "^\\."
             ],
             [
-              "^.+\\u0000$"
+              "^\\.+\\u0000$"
             ],
             [
               "^\\u0000"
@@ -100,36 +100,38 @@
     }
   },
   "dependencies": {
-    "@clack/prompts": "^0.7.0",
+    "@clack/prompts": "^0.11.0",
     "@shawbox/util": "^0.0.1",
-    "commander": "^12.1.0",
-    "csv-parse": "^5.6.0",
-    "csv-stringify": "^6.5.2",
-    "fs-extra": "^11.3.0",
-    "signale": "^1.4.0",
-    "simple-git": "^3.27.0",
+    "commander": "^14.0.0",
+    "consola": "^3.4.2",
+    "csv-parse": "^6.1.0",
+    "csv-stringify": "^6.6.0",
+    "fs-extra": "^11.3.1",
+    "simple-git": "^3.28.0",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.27.7",
-    "@commitlint/cli": "^19.3.0",
+    "@changesets/cli": "^2.29.6",
+    "@commitlint/cli": "^19.8.1",
+    "@rsbuild/core": "^1.5.4",
+    "@rsbuild/plugin-node-polyfill": "^1.4.2",
+    "@rsbuild/plugin-type-check": "^1.2.4",
     "@shawbox/ts-config": "^0.0.2",
     "@types/node": "^20.14.11",
-    "@types/signale": "^1.4.7",
     "commitlint-config-ali": "^1.1.0",
     "eslint": "^8.57.0",
     "eslint-config-ali": "^15.0.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-simple-import-sort": "^12.1.1",
-    "husky": "^8.0.3",
+    "husky": "^9.1.7",
     "lint-staged": "^15.2.7",
     "prettier": "^3.3.3",
     "prettier-config-ali": "^1.3.2",
-    "ts-node-dev": "^2.0.0",
-    "tsconfig-paths": "^4.2.0",
-    "tsup": "^8.4.0",
-    "typescript": "^5.5.4"
+    "standard-version": "^9.5.0",
+    "tsup": "^8.5.0",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
   },
   "publishConfig": {
     "access": "public",

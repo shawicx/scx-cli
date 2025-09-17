@@ -1,65 +1,40 @@
 /*
  * @Author: shawicx d35f3153@proton.me
- * @Date: 2025-03-23 21:35:42
- * @LastEditors: shawicx d35f3153@proton.me
- * @LastEditTime: 2025-03-23 23:17:08
- * @Description:
+ * @Description: CLI入口文件
  */
 import { Command } from 'commander';
-import signale from 'signale';
-
-import commandCsv from '~/csv';
-import { CsvType } from '~/csv/type';
-import commandSwagger from '~/swagger';
-import commandTemplate from '~/template';
+import { consola } from 'consola';
 
 import cliPkg from '../package.json';
+import { createCsvCommand } from './csv/command';
+import { createTemplateCommand } from './template/command';
 
 const program = new Command();
 
 program
-  .name('@scxfe/cli')
+  .name('scxfe-cli')
   .description('scxfe cli，效率提升利器')
   .version(cliPkg.version, '-v, --version', '查看当前安装的 cli 版本');
 
-program
-  .command('template')
-  .description('下载 模版仓库')
-  .option('-i, --install', '执行安装命令')
-  .action(async () => {
-    await commandTemplate();
-  });
+// 添加命令
+program.addCommand(createTemplateCommand());
+program.addCommand(createCsvCommand());
 
-program
-  .command('csv')
-  .description('csv 与 json 互转')
-  .argument('<string>', 'string to split')
-  .option('-t, --to', 'csv 转 json')
-  .option('-f, --from', 'json 转 csv')
-  .action(async (fileName: string, options) => {
-    signale.debug(typeof options?.to, options, 'options');
+// 错误处理
+program.exitOverride((err) => {
+  if (err.code === 'commander.help' || err.code === 'commander.helpDisplayed') {
+    process.exit(0);
+  }
+  consola.error('CLI execution failed:', err.message);
+  process.exit(1);
+});
 
-    if (options.to && options.from) {
-      signale.error('不能同时使用 --to 和 --from');
-      process.exit(1);
-    }
-    if (!options.to && !options.from) {
-      signale.error('必须选择 --to 或 --from 之一');
-      process.exit(1);
-    }
-
-    await commandCsv(fileName, options.to ? CsvType.CsvToJSON : CsvType.JSONToCsv);
-  });
-
-program
-  .command('swagger')
-  .description('根据 swagger 文档生成 api 文件以及 interface 文件')
-  // 初始化配置文件
-  .option('-c, --config', '初始化配置文件')
-  // 生成 api 文件
-  .option('-a, --api', '生成 api 文件以及 interface 文件')
-  .action(async ({ config, api }) => {
-    await commandSwagger({ config, api });
-  });
-
-program.parse(process.argv);
+try {
+  program.parse();
+} catch (error: any) {
+  if (error.code === 'commander.help' || error.code === 'commander.helpDisplayed') {
+    process.exit(0);
+  }
+  consola.error('CLI execution failed:', error.message || error);
+  process.exit(1);
+}
