@@ -1,6 +1,5 @@
-/*
- * @Author: shawicx d35f3153@proton.me
- * @Description: CLI入口文件
+/**
+ * @description: CLI入口文件
  */
 import { Command } from 'commander';
 import { consola } from 'consola';
@@ -9,7 +8,6 @@ import { gitLogsCommand } from '~/commands/git-logs';
 
 import cliPkg from '../package.json';
 import { createCsvCommand } from './csv/command';
-import { createTemplateCommand } from './template/command';
 
 const program = new Command();
 
@@ -19,7 +17,6 @@ program
   .version(cliPkg.version, '-v, --version', '查看当前安装的 cli 版本');
 
 // 添加命令
-program.addCommand(createTemplateCommand());
 program.addCommand(createCsvCommand());
 program.addCommand(gitLogsCommand);
 
