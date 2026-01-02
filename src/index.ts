@@ -5,6 +5,8 @@
 import { Command } from 'commander';
 import { consola } from 'consola';
 
+import { gitLogsCommand } from '~/commands/git-logs';
+
 import cliPkg from '../package.json';
 import { createCsvCommand } from './csv/command';
 import { createTemplateCommand } from './template/command';
@@ -19,6 +21,7 @@ program
 // 添加命令
 program.addCommand(createTemplateCommand());
 program.addCommand(createCsvCommand());
+program.addCommand(gitLogsCommand);
 
 // 错误处理
 program.exitOverride((err) => {

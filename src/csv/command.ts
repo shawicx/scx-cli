@@ -31,10 +31,7 @@ export function createCsvCommand(): Command {
 
       // 执行转换命令
       try {
-        await commandCsv(
-          fileName,
-          options.to ? CsvType.CsvToJSON : CsvType.JSONToCsv
-        );
+        await commandCsv(fileName, options.to ? CsvType.CsvToJSON : CsvType.JSONToCsv);
       } catch (error) {
         consola.error('执行转换时发生错误:', error);
         process.exit(1);
