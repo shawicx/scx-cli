@@ -7,6 +7,7 @@ import { consola } from 'consola';
 import { gitLogsCommand } from '~/commands/git-logs';
 
 import cliPkg from '../package.json';
+import { createCompressCommand } from './compress/command';
 import { createConvertCommand } from './convert/command';
 import { createCsvCommand } from './csv/command';
 
@@ -20,6 +21,7 @@ program
 // 添加命令
 program.addCommand(createCsvCommand());
 program.addCommand(createConvertCommand());
+program.addCommand(createCompressCommand());
 program.addCommand(gitLogsCommand);
 
 // 错误处理
