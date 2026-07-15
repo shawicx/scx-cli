@@ -43,3 +43,5 @@ lerna-debug.log*
 .eslintcache
 
 *.xlsx
+
+docs/superpowers

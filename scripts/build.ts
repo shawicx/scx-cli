@@ -6,17 +6,17 @@ import { join } from 'path';
 
 async function buildScript() {
   const result = await build({
-    entrypoints: ["src/index.ts"],
-    outdir: "dist",
-    format: "esm",
-    target: "bun",
+    entrypoints: ['src/index.ts'],
+    outdir: 'dist',
+    format: 'esm',
+    target: 'bun',
     minify: true,
     sourcemap: false,
     // external: ["fsevents"],
   });
 
   if (!result.success) {
-    consola.error("❌ Build failed:");
+    consola.error('❌ Build failed:');
     for (const log of result.logs) {
       consola.error(log.message);
     }
@@ -25,7 +25,7 @@ async function buildScript() {
 
   // 计算并显示总大小
   try {
-    const files = getAllFiles("dist");
+    const files = getAllFiles('dist');
     let totalSize = 0;
 
     for (const file of files) {
@@ -71,4 +71,4 @@ function formatFileSize(bytes: number): string {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 }
 
-buildScript()
+buildScript();

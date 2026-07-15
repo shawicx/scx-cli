@@ -17,7 +17,9 @@
   "license": "ISC",
   "author": "",
   "types": "dist/types.d.ts",
-  "bin": "dist/index.js",
+  "bin": {
+    "scxfe-cli": "./dist/index.js"
+  },
   "scripts": {
     "build": "tsup",
     "dev": "tsx src/index.ts",
@@ -101,12 +103,14 @@
   },
   "dependencies": {
     "@clack/prompts": "^0.11.0",
+    "@scxfe/cli": "link:",
     "@shawbox/util": "^0.0.1",
     "commander": "^14.0.0",
     "consola": "^3.4.2",
     "csv-parse": "^6.1.0",
     "csv-stringify": "^6.6.0",
     "fs-extra": "^11.3.1",
+    "heic-convert": "^2.1.0",
     "simple-git": "^3.28.0",
     "xlsx": "^0.18.5"
   },
@@ -117,6 +121,7 @@
     "@rsbuild/plugin-node-polyfill": "^1.4.2",
     "@rsbuild/plugin-type-check": "^1.2.4",
     "@shawbox/ts-config": "^0.0.2",
+    "@types/heic-convert": "^2.1.1",
     "@types/node": "^20.14.11",
     "commitlint-config-ali": "^1.1.0",
     "eslint": "^8.57.0",
